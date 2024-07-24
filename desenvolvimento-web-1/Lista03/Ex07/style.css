@@ -1,0 +1,56 @@
+:root {
+    --container-margin: 10px;
+}
+
+* {
+    margin: 0px;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background-color: black;
+}
+
+header, footer {
+    width: 100%;
+    height: 10%;
+}
+
+header {
+    top: 0%;
+    background-color: green;
+}
+
+footer {
+    bottom: 0%;
+    background-color: orchid;
+}
+
+.float-container {
+    margin: var(--container-margin);
+    width: calc(100% - 2 * var(--container-margin));
+    height: calc(80% - 2 * var(--container-margin));
+}
+
+.float-child {
+    float: left;
+    height: 100%;
+}
+
+.azul {
+    width: 20%;
+    background-color: blue;
+}
+
+.vermelho {
+    width: 60%;
+    background-color: red;
+}
+
+.cinza {
+    width: 20%;
+    background-color: grey;
+}

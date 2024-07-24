@@ -1,0 +1,56 @@
+<!-- ALT + B: Abre o arquivo html no browser.-->
+<!--          Extensão "open in browser".    -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulários</title>
+</head>
+<body>
+    <form action="formController.php"
+          method="post">
+        <label for="userName">Nome:</label>
+        <input required
+               autofocus
+               type="text" 
+               maxlength="5"
+               id="userName"
+               placeholder="Usuário">
+        <br>
+        <label>Senha:</label>
+        <input required
+               type="password" 
+               maxlength="5"
+               id="userPassword"
+               placeholder="Senha">
+        <br>
+        <input type="submit">
+        <input type="reset" value="Redefinir"> 
+        <input type="button" value="Ação">
+        <button>Botão</button>
+        <br>
+        <textarea placeholder="Campo de comentários"
+                  rows="10"
+                  cols="30">
+        </textarea>
+        <br>
+        <input type="checkbox">
+        <label>Concordo com os termos</label>
+        <br>
+        <br>
+        <label>Você gosta da aula?</label>
+        <br>
+        <input type="radio" name="aula"><label>Sim</label>
+        <input type="radio" name="aula"><label>Não</label>
+        <br>
+        <br>
+        <select>
+            <option>Opção 1</option>
+            <option selected>Opção 2</option>
+            <option>Opção 3</option>
+        </select>
+    </form>
+</body>
+</html>

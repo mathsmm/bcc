@@ -1,0 +1,16 @@
+:root {
+    --h: 200px;
+    --w: 300px;
+}
+
+img {
+    height: var(--h);
+    width: var(--w);
+    transition-property: height width;
+    transition-duration: 2s;
+}
+
+img:hover {
+    height: calc(var(--h) * 2);
+    width:  calc(var(--w) * 2);
+}

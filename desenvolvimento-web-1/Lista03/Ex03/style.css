@@ -1,0 +1,28 @@
+body {
+    background-color: black;
+}
+
+.contador {
+    animation: contador 5s linear infinite alternate;
+    counter-reset: count 0;
+}
+
+.contador::before {
+    color: white;
+    content: counter(count);
+    font-size: 7em;
+}
+
+@keyframes contador {
+    0%   {counter-increment: count 0;}
+    10%  {counter-increment: count 1;}
+    20%  {counter-increment: count 2;}
+    30%  {counter-increment: count 3;}
+    40%  {counter-increment: count 4;}
+    50%  {counter-increment: count 5;}
+    60%  {counter-increment: count 6;}
+    70%  {counter-increment: count 7;}
+    80%  {counter-increment: count 8;}
+    90%  {counter-increment: count 9;}
+    100% {counter-increment: count 10;}
+}

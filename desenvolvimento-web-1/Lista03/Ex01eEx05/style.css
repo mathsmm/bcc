@@ -1,0 +1,49 @@
+* {
+    margin: 0px;
+    border: 0px;
+    padding: 0px;
+}
+
+body {
+    background-color: black;
+}
+
+div {
+    width: 30px;
+    height: 30px;
+    background-color: grey;
+    border-radius: 10px;
+    position: absolute;
+}
+
+div#superior-direito {
+    top: 0%;
+    right: 0%;
+    background: linear-gradient(red, green, yellow);
+}
+
+div#superior-esquerdo {
+    top: 0%;
+    left: 0%;
+    background: radial-gradient(whitesmoke, black);
+}
+
+div#inferior-direito {
+    bottom: 0%;
+    right: 0%;
+    background: linear-gradient(217deg, blue, violet);
+}
+
+div#inferior-esquerdo {
+    bottom: 0%;
+    left: 0%;
+    background-color: yellow;
+}
+
+div#centro {
+    top: 50%;
+    right: 50%;
+    bottom: 50%;
+    left: 50%;
+    background: linear-gradient(90deg, magenta, black);
+}

@@ -1,0 +1,25 @@
+* {
+    margin: 0;
+}
+
+html, body {
+    height: 100%;
+}
+
+#aux {
+    margin: 0 auto;
+    align-items: center;
+}
+
+#retangulo {
+    display: inline-block;
+    background-color: yellow;
+    width: 100px;
+    height: 100px;
+    transform: rotate(45deg);
+}
+
+#retangulo h1 {
+    transform: scale(-1, -1);
+    text-align: center;
+}

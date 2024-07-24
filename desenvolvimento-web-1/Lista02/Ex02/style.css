@@ -1,0 +1,14 @@
+body {
+    background-color: antiquewhite;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 1em;
+}
+
+h1 {
+    background-color: darkgrey;
+    border-radius: 20%;
+    border-style: solid;
+    border-color: aliceblue;
+    cursor: wait;
+    text-align: center;
+}

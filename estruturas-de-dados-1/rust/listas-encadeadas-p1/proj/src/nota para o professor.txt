@@ -1,0 +1,9 @@
+Esta é a versão orientada a objetos da atividade de
+listas encadeadas.
+
+Para executar o código, basta copiá-lo, colar no site
+"https://play.rust-lang.org/" e depois clicar em "RUN"
+
+Caso o professor queira instalar o Rust e compilar o
+código pelo VSCode, siga as instruções do site
+"https://www.rust-lang.org/learn/get-started"

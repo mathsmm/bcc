@@ -1,0 +1,7 @@
+input[type=text] {
+    background-color: lightblue;
+}
+
+input[type=text]:required {
+    background-color: lightcoral;
+}
