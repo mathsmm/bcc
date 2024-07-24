@@ -1,0 +1,21 @@
+sobre a base de dados de empregados de Chicago
+
+1) encontrar os dados desta pessoa: "DODOVICH,  ROBERT A"
+
+2) descobrir quais são os 5 maiores salários, dentre os assalariados; exibir os dados das pessoas
+
+3) descobrir qual é a profissão que remunera menos
+
+4) descobrir quantos assalariados e quantos horistas estão cadastrados na tabela
+
+5) descobrir quantos departamentos diferentes existem nas tabelas
+
+6) descobrir quantos empregos diferentes existem nas tabelas
+
+7) descobrir quantas pessoas existem cadastradas por departamento; experimentar ordenação crescente e decrescente dessas quantidades na exibição dos resultados
+
+8) repetir a questão anterior por descrição de emprego
+
+9) descobrir quais profissões predominam no aspecto de trabalho em tempo parcial
+
+10) descobrir qual é o sobrenome (se encontra antes da vírgula) que ocorre mais vezes no banco de dados

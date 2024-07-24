@@ -1,0 +1,55 @@
+@startuml
+!function $strategy($a)
+!return "<color:Navy>" + $a + "</color>"
+!endfunction
+
+!function $iterator($a)
+!return "<color:DarkGreen>" + $a + "</color>"
+!endfunction
+
+class Body{
+  position: Vec2
+  velocity: Vec2
+  acceleration: Vec2
+  mass: Float
+}
+
+class RectBody{
+  height: Float
+  width: Float
+}
+
+class CircleBody{
+  radius: Float
+}
+
+class App{
+  [...]
+  circle_bodies: list
+  rect_bodies: list
+}
+
+stereotype CollisionLogic{
+  {static} circle_circle_collision()
+  {static} circle_rect_collision()
+}
+
+stereotype DisplayLogic{
+  {static} display_velocity()
+  {static} display_circle()
+  {static} display_rect()
+}
+
+stereotype MovementLogic{
+  {static} move()
+  {static} accelerate()
+}
+
+App <-- Body
+App -left- CollisionLogic
+App -right- DisplayLogic
+App -up- MovementLogic
+
+Body <|-left- RectBody
+Body <|-right- CircleBody
+@enduml

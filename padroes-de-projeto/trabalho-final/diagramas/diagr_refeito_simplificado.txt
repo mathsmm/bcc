@@ -1,0 +1,118 @@
+@startuml
+
+!function $strategy($a)
+!return "<color:Navy>" + $a + "</color>"
+!endfunction
+
+!function $iterator($a)
+!return "<color:DarkGreen>" + $a + "</color>"
+!endfunction
+
+class Body{
+  position: Vec2
+  velocity: Vec2
+  acceleration: Vec2
+  mass: Float
+  
+  $strategy("move_behav: MovementBehav")
+  $strategy("vel_display_behav: VelDisplayBehav")
+  $strategy("body_display_behav: BodyDisplayBehav")
+}
+
+class RectBody{
+  height: Float
+  width: Float
+}
+
+class CircleBody{
+  radius: Float
+}
+
+class App{
+  [...]
+  bodies: list
+  $iterator("body_iter: Iterator")
+}
+
+stereotype CollisionLogic{
+  {static} circle_circle_collision()
+  {static} circle_rect_collision()
+}
+
+interface Iterator #white;line:darkgreen;line.bold;back:f4fee5{
+  //has_next()//
+  //next()//
+  //first()//
+}
+
+class BodyIterator{
+  index: Integer
+  pairs: list
+
+  has_next(): Bool
+  next(): Body
+  first(): None
+}
+
+interface MovementBehav #white;line:Navy;line.bold;back:e5f4fe{
+  //move()//
+}
+
+class DoMove{
+  b: Body
+  move()
+}
+
+
+class DontMove{
+  b: Body
+  move()
+}
+
+interface VelDisplayBehav #white;line:Navy;line.bold;back:e5f4fe{
+  //display()//
+}
+
+class DoDisplayVel{
+  b: Body
+  display()
+}
+
+class DontDisplayVel{
+  b: Body
+  display()
+}
+
+interface BodyDisplayBehav #white;line:Navy;line.bold;back:e5f4fe{
+  //display()//
+}
+
+class DisplayRect{
+  b: Body
+  display()
+}
+
+class DisplayCircle{
+  b: Body
+  display()
+}
+
+App <-- Body
+App -left- CollisionLogic
+App <-right- Iterator
+
+Body <-- MovementBehav
+Body <-- VelDisplayBehav
+Body <-- BodyDisplayBehav
+
+Body <|-left- RectBody
+Body <|-right- CircleBody
+Iterator <|-right- BodyIterator
+MovementBehav <|-- DontMove
+MovementBehav <|-- DoMove
+VelDisplayBehav <|-- DoDisplayVel
+VelDisplayBehav <|-- DontDisplayVel
+BodyDisplayBehav <|-- DisplayRect
+BodyDisplayBehav <|-- DisplayCircle
+
+@enduml

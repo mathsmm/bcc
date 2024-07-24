@@ -1,0 +1,33 @@
+preparativos para a importação:
+
+sqlite> create table chicago (nome text, profissao text, departamento text, full_ou_part text, assalariado_ou_horista text, horas_tipicas int, salario_anual float, "Hourly Rate" float);
+
+$ tail -n +2 test.csv > test_clean.csv
+
+i) Obtenha a média dos salários, considerando apenas quem recebe salário anual.
+
+select avg(salario_anual) from chicago
+where assalariado_ou_horista = 'Salary'
+
+ii) Obtenha a média dos salários, considerando apenas quem recebe salário por hora.
+
+select avg("Hourly Rate" * 251 * horas_tipicas / 5) from chicago 
+where assalariado_ou_horista = 'Hourly'
+
+iii) Verifique qual é a maior média (dos assalariados ou dos horistas).
+
+select avg(salario_anual) from chicago
+where assalariado_ou_horista = 'Salary'
+union
+select avg("Hourly Rate" * 251 * horas_tipicas / 5) from chicago 
+where assalariado_ou_horista = 'Hourly'
+
+usando visão:
+
+create view salarios AS
+select avg(salario_anual) from chicago
+where assalariado_ou_horista = 'Salary'
+union
+select avg("Hourly Rate" * 251 * horas_tipicas / 5) from chicago 
+where assalariado_ou_horista = 'Hourly'
+

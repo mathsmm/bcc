@@ -1,0 +1,110 @@
+sql avançado, gatilhos e visões
+capítulo 5 Elmasri 6a edição
+
+* Quem desejar, revisar capítulo 4 - SQL Básica
+
+seção 5.1
+
+* NULL (pg 77)
+where cpf is null
+
+* consultas aninhadas (pg 78)
+where projnumero in (select pnr ...)
+
+* uso de tuplas em consulta aninhada
+where (pnr, horas) in (select pnr, horas ...)
+
+* uso de operador ALL em comparação:
+where salario > all(select salario ...)
+https://www.w3schools.com/mysql/mysql_any_all.asp
+
+* consulta aninhada mais interna (correlacionada)
+=> parâmetro no SQL externo é usado no SQL interno
+
+from funcionario as F
+where F.cpf in (
+  select D.cpf
+  from dependente as D
+  where F.nome = D.nome
+  and ... )
+
+5.4.1
+
+* exists e unique
+where exists (select ...)
+
+* subtração: EXCEPT (pg 80)
+select (...)
+except (...)
+
+https://dev.mysql.com/doc/refman/8.0/en/except.html
+https://examples.javacodegeeks.com/sql-except-example/
+
+* unique: true se não houver linhas duplicadas
+
+5.1.5 (pg 81)
+
+* select distinct => evitar repetições
+* renomear atributos ou tabelas: "as"
+
+5.1.6 Junções
+
+* especificar junções e depois selecionar tuplas e atributos
+ex: C1A (pg 81)
+
+* natural join: junção com atributos de mesmo nome
+ex: C1B (pg 81)
+
+* inner join: tuplas existem nos 2 lados da relação
+* left outer join: inclui todas as tuplas "da esquerda" da relação; ex: C8B
+* right outer join: inclui todas as tuplas "da direita" da relação
+* cross join: produto cartesiano (cuidado!)
+* aninhar junções (junções múltiplas); ex: C2A (pg 82)
+
+5.1.7 agregação
+* count, sum, max, min, avg
+ex: C20, C21, C22, C23
+
+* aninhado:
+C5: where (select count(...)) >= 2 (pg 83)
+
+5.1.8 group by e having
+ex: C24 (pg 83)
+
+* grupo separado para valores NULL
+* having: critérios de group by
+ex: C26 => C27, C28 (pg 85)
+C28 ERRADO, correto na 7a edição
+
+* order by
+
+5.2
+* restrições comuns: chaves primária e única, integrida de entidade (pk não muda) e integridade referencial
+* restrições extras: asserções e gatilhos
+
+5.2.1 asserções
+* exemplo no livro (exists, not exists)
+* executado em inserção ou atualização
+
+5.2.2 triggers
+* monitorar o BD
+* exemplo: R5 (pg 88)
+
+5.3 visão
+* tabela virtual
+* create view nome as select ...
+* drop view ...
+
+5.3.3
+* materialização da view: criar tabela temporária e mantê-la
+  => atualização incremental: quando tabelas de base usadas pela view forem modificadas (registros)
+
+* atualização:
+  => visão sobre 1 tabela é atualizável se possuir pk e atributos not null sem valor default (precisa adicionar with check option para manter visão atualizada)
+  => visão com junções ou agregações: geralmente não é atualizável
+  => visão em linha: select ... from visao (em vez de tabela)
+https://www.akadia.com/services/ora_subquery_inlineview.html
+
+5.4 comandos de alteração de esquemas
+
+FIM

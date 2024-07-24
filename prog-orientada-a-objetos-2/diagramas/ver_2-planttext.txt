@@ -1,0 +1,122 @@
+@startuml
+
+!function $vetorzinho($a)
+!return "<color:Navy>" + $a + "</color>"
+!endfunction
+
+!function $tempozinho($a)
+!return "<color:DarkGreen>" + $a + "</color>"
+!endfunction
+
+!theme toy
+
+skin rose
+
+title Diagrama de classes do Simulador
+
+skinparam backgroundColor #EEEBDC
+skinparam classFontColor MidnightBlue
+
+set separator ::
+
+class App{
+  AppVar global;
+  bool runningProgram;
+  bool runningSimulation;
+  SDL_Window* janela;
+  SDL_Renderer* renderizador;
+  int Executar();
+  void AoIniciar();
+  void AoAntesLoop();
+  void AoEvento();
+  void AoLimpar();
+  void AoIterarEntreOsCorpos();
+  void RenderizandoNaHora();
+}
+class AppVar{
+  int alturaJanela;
+  int larguraJanela;
+  int ticksBeforeSimulation;
+  int ticksLimitPerSimulation;
+  int circumQty;
+  int terminatedCircumQty;
+  int circumVertexQuantity
+  *$tempozinho("TempoSimulacao TS");
+  vector<RectBody> rectBodies;
+  vector<CircumBody> circumBodies;
+}
+class Vetor #white;line:Navy;line.bold;back:e5f4fe{
+  double x;
+  double y;
+  Vetor Unitario();
+  double Modulo();
+  double Seno();
+  double Cosseno();
+  double Argumento();
+  void IncArgumento(double inc);
+}
+class TempoSimulacao #white;line:darkgreen;line.bold;back:f4fee5{
+  int fps;
+  int ticks;
+  int dT;
+  double dDT;
+  double rDT;
+  void Atraso();
+}
+class Corpo{
+  Forma forma;
+  *$vetorzinho("Vetor posicao");
+  *$vetorzinho("Vetor velocidade");
+  *$vetorzinho("Vetor aceleracao");
+  double area;
+  double massa;
+}
+abstract class Geometria::Forma{
+  virtual void exibir();
+}
+class Geometria::RectBody{
+  double altura;
+  double largura;
+  bool terminator;
+}
+class Geometria::CircumBody{
+  double raio;
+  double maxVel;
+  bool terminator;
+}
+abstract class Utilidades::Mechanics{
+  {static} void CircumMove(CircumBody* circum);
+  {static} void CircumAccelerate(CircumBody* circum);
+  {static} void CircumCollision(CircumBody* circum1, CircumBody* circum2);
+  {static} void CircumRectCollision(CircumBody* circum, RectBody* rect);
+  {static} void AttractToTerminator(CicumBody* circum, std::vector<RectBody> rectBodies, double accel)
+}
+abstract class Utilidades::Exibicao{
+  {static} void Exibir(Forma forma);
+}
+abstract class Utilidades::Persistencia{
+  {static} void CarregarSimulacao();
+}
+
+App *-left- AppVar
+
+Mechanics -[hidden]-> Exibicao
+Exibicao -[hidden]-> Persistencia
+
+App -- Utilidades
+
+App -[hidden]-> Corpo
+App -[hidden]-> Mechanics
+
+AppVar *-left- TempoSimulacao
+AppVar "1" o-down- "n" Corpo
+
+Corpo *-- CircumBody
+Corpo *-- RectBody
+
+Corpo *-left- Vetor
+
+RectBody --> Forma
+CircumBody --> Forma
+
+@enduml

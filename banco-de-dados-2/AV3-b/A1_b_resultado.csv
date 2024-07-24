@@ -1,0 +1,6 @@
+"customer_id","store_id","first_name","last_name","email","address_id","active","create_date","last_update"
+137,2,RHONDA,KENNEDY,RHONDA.KENNEDY@sakilacustomer.org,141,"1","2006-02-14 22:04:36.000","2023-09-19 23:39:57"
+144,1,CLARA,SHAW,CLARA.SHAW@sakilacustomer.org,148,"1","2006-02-14 22:04:36.000","2023-09-19 23:39:57"
+148,1,ELEANOR,HUNT,ELEANOR.HUNT@sakilacustomer.org,152,"1","2006-02-14 22:04:36.000","2023-09-19 23:39:57"
+178,2,MARION,SNYDER,MARION.SNYDER@sakilacustomer.org,182,"1","2006-02-14 22:04:36.000","2023-09-19 23:39:58"
+526,2,KARL,SEAL,KARL.SEAL@sakilacustomer.org,532,"1","2006-02-14 22:04:37.000","2023-09-19 23:40:00"

@@ -1,0 +1,40 @@
+TRANSAÇÕES no MYSQL
+
+* referência:
+https://dev.mysql.com/doc/refman/8.0/en/commit.html
+
+* transação: série de operações executadas em conjunto
+  => todas as operações são executadas ou nenhuma operação é executada
+* exemplos de transações: 
+- transferência bancária (retira de uma conta, insere em outra)
+update conta set saldo = saldo + 500 where numero = '12345-6' (conta destino)
+update conta set saldo = saldo - 500 where numero = '19283-4' (conta origem)
+- dois clientes tentando finalizar a compra de um último produto em estoque 
+https://pt.stackoverflow.com/questions/1924/para-que-serve-uma-mysql-transaction
+
+* comandos:
+- start transaction; (ou: begin)
+- commit;
+- rollback;
+- set autocommit = 0 (ou 1 para ligar)
+
+* o start transaction desabilita o autocommit implicitamente dentro da transação
+  => portanto, por padrão o autocommit está... [ ] habilitado [ ] desabilitado
+
+* avançado:
+start transaction;
+...
+savepoint ponto1; => marca um "ponto" que pode ser desfeito, dentro da transação
+...
+rollback to savepoint ponto1;
+...
+commit;
+
+* savepoints são removidos após um commit ou rollback
+* em geral, comandos DDL não podem ser transacionados (já são implicitamente confirmados)
+
+contribuições 2019/2:
+- Luiz: usar transações para controle de migração (converte/migra tudo ou nada)
+- Jefferson: na philips usamos stored procedures específicas, logo não precisa usar pontos da transação (transações longas)
+- Miguel: o autocommit é automático para comandos DDL
+- Matheus: fazemos comentários em códigos externos para sinalizar autoria das modificações.

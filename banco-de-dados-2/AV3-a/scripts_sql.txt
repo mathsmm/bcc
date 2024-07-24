@@ -1,0 +1,51 @@
+--Selecionar tudo da tabela chicago
+SELECT *
+FROM chicago
+
+
+
+--Selecionar média salarial anual dos funcionários assalariados
+SELECT AVG(c."Annual Salary") AS 'Média salarial anual dos assalariados' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "SALARY"
+
+
+
+--Selecionar média salarial anual dos funcionários horistas
+SELECT AVG(c."Typical Hours"/7*c."Hourly Rate"*365) AS 'Média salarial anual dos horistas' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "HOURLY"
+
+
+
+--União das duas médias para melhor visualização
+SELECT c."Salary or Hourly" AS 'Tipo funcionário', 
+       AVG(c."Annual Salary") AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "SALARY"
+UNION
+SELECT c."Salary or Hourly" AS 'Tipo funcionário',
+       AVG(c."Typical Hours"/7*c."Hourly Rate"*365) AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "HOURLY"
+
+
+
+--União das duas médias com o multiplicador 
+--percentual adicionado aos salários dos horistas
+SELECT c."Salary or Hourly" AS 'Tipo funcionário', 
+       AVG(c."Annual Salary") AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "SALARY"
+UNION
+SELECT c."Salary or Hourly" AS 'Tipo funcionário',
+       AVG(c."Typical Hours"/7*c."Hourly Rate"*365)*1.51803325614309 AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "HOURLY"
+
+
+
+--Update da tabela para equiparar os salários
+UPDATE chicago
+SET "Hourly Rate"  = "Hourly Rate" * 1.51803325614309
+WHERE UPPER("Salary or Hourly") == "HOURLY"

@@ -1,0 +1,94 @@
+sobre a base de dados de empregados de Chicago
+
+1) encontrar os dados desta pessoa: "DODOVICH,  ROBERT A"
+
+select * from chicago where nome = "DODOVICH,  ROBERT A"
+
+2) descobrir quais são os 5 maiores salários, dentre os assalariados; exibir os dados das pessoas
+
+select * from chicago 
+where assalariado_ou_horista = 'Salary'
+order by salario_anual desc
+limit 5
+
+3) descobrir qual é a profissão que remunera menos
+
+considerando apenas os assalariados:
+
+select * from chicago 
+where assalariado_ou_horista = 'Salary'
+order by salario_anual
+limit 1
+
+4) descobrir quantos assalariados e quantos horistas estão cadastrados na tabela
+
+select count(*) as q, 'assalariados' as tipo from chicago 
+where assalariado_ou_horista = 'Salary'
+UNION 
+select count(*) as q, 'horistas' as tipo from chicago 
+where assalariado_ou_horista = 'Hourly'
+
+5) descobrir quantos departamentos diferentes existem nas tabelas
+
+-- contagem de departamentos a partir de um subsql
+select count(departamento) from (
+-- quantidade de registros por departamento
+select count(departamento) as q, departamento from chicago
+group by departamento
+)
+
+6) descobrir quantos empregos diferentes existem nas tabelas
+
+select count(profissao) from (
+select count(profissao) as q, profissao from chicago
+group by profissao
+)
+
+7) descobrir quantas pessoas existem cadastradas por departamento; experimentar ordenação crescente e decrescente dessas quantidades na exibição dos resultados
+
+select count(nome) as q, departamento from chicago
+group by departamento
+order by q desc
+
+8) repetir a questão anterior por descrição de emprego
+
+select count(nome) as q, profissao from chicago
+group by profissao
+order by q desc
+
+9) descobrir quais profissões predominam no aspecto de trabalho em tempo parcial
+
+select count(nome) as q, profissao from chicago
+where assalariado_ou_horista ='Hourly'
+group by profissao
+order by q desc
+
+as profissões que mais apresentam registros são estas:
+
+q profissão
+1057 MOTOR TRUCK DRIVER 
+557	SANITATION LABORER
+457	CONSTRUCTION LABORER
+428	TRAFFIC CONTROL AIDE-HOURLY
+
+10) descobrir qual é o sobrenome (se encontra antes da vírgula) que ocorre mais vezes no banco de dados
+
+-- contagem de sobrenomes
+select count(sobrenome) as q, sobrenome from (
+select substr(nome, 1, instr(nome,',')-1) as sobrenome from chicago
+)
+group by sobrenome
+order by q desc
+
+alguns resultados:
+293	WILLIAMS
+255	JOHNSON
+247	SMITH
+197	RODRIGUEZ
+185	JONES
+
+-- conferindo
+select count(*) from (
+select * from chicago 
+where nome like 'WILLIAMS,%'
+)

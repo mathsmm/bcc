@@ -1,0 +1,45 @@
+Criando vetores embaralhados e ordenados de tamanhos 10^3, 10^4, 10^5, 10^6 e 10^7.
+Escalei o tamanho dos vetores pois C++ eh muito veloz.
+1.71105 segundos para criar os vetores
+
+Busca linear do numero 3 numa lista de tamanho 10^3
+Indice: 932
+0.0005809 segundos
+
+Busca linear do numero 3 numa lista de tamanho 10^4
+Indice: 4538
+0.0023828 segundos
+
+Busca linear do numero 3 numa lista de tamanho 10^5
+Indice: 62199
+0.0005629 segundos
+
+Busca linear do numero 3 numa lista de tamanho 10^6
+Indice: 875723
+0.0056643 segundos
+
+Busca linear do numero 3 numa lista de tamanho 10^7
+Indice: 9589879
+0.0335785 segundos
+
+Busca binaria do numero 3 numa lista de tamanho 10^3
+Indice: 2
+0.0014308 segundos
+
+Busca binaria do numero 3 numa lista de tamanho 10^4
+Indice: 2
+0.0005332 segundos
+
+Busca binaria do numero 3 numa lista de tamanho 10^5
+Indice: 2
+0.0004884 segundos
+
+Busca binaria do numero 3 numa lista de tamanho 10^6
+Indice: 2
+0.0004208 segundos
+
+Busca binaria do numero 3 numa lista de tamanho 10^7
+Indice: 2
+0.000417 segundos
+
+Fim

@@ -1,0 +1,43 @@
+1) questões do poscomp 2022:
+https://github.com/hvescovi/hvescovi.github.io/blob/master/08-poscomp/2022_poscomp_prova.pdf
+
+a) questão 51
+b) questão 64
+c) questão 67
+
+2) questões do poscomp 2019:
+https://github.com/hvescovi/hvescovi.github.io/blob/master/08-poscomp/2019_poscomp_prova.pdf
+
+a) questão 51 (ATENÇÃO! ESSA EU ERREI)
+
+Dica: ler referência no livro do Elmasri, seção 22.2.2
+
+3) questões do poscomp 2018:
+https://github.com/hvescovi/hvescovi.github.io/blob/master/08-poscomp/2018_poscomp_prova.pdf
+
+a) questão 51 (ATENÇÃO! ESSA EU ERREI)
+
+Dica: https://www.w3schools.com/sql/sql_any_all.asp
+
+4) questões do ENADE 2017:
+https://github.com/hvescovi/hvescovi.github.io/blob/master/05-enade/BCC/2017_bcc_bacharelado_prova.pdf
+
+a) questão 19 (obs: tem um erro na questão, considerar chave primária de Deputado igual a idDeputado)
+b) questão 34 (por curiosidade; revisar as formas normais antes de fazer a questão) <====== ainda não fiz!
+
+5) questões do ENADE 2014:
+https://github.com/hvescovi/hvescovi.github.io/blob/master/05-enade/BCC/2014_bcc_bacharelado_prova.pdf
+
+a) questão 24
+
+6) Cite uma ou mais diferenças entre os bancos de dados mysql e sqlite.
+
+7) Cite uma ou mais vantagens entre os bancos de dados mysql e sqlite.
+
+8) O que é integridade referencial?
+
+9) Como você faria a migração de um banco de dados mysql para um banco de dados do sqlite?
+
+10) Quais são as formas de se acessar dados e tabelas de um banco de dados do mysql? E do sqlite?
+
+FIM

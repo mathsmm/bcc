@@ -1,0 +1,8 @@
+consultas similares para teste no sakila:
+
+select distinct amount from payment p 
+where amount > all (select amount from payment) or amount < any (select amount from payment)
+
+select distinct amount from payment p
+where exists (select * from payment as p2 where p2.amount > p.amount)
+

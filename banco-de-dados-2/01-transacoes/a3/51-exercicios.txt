@@ -1,0 +1,14 @@
+Sobre a base de dados de salários de Chicago, responda as perguntas abaixo, informando qual(is) comando(s) SQL você utilizou para descobrir a resposta.
+
+1) quantos registros possui a base de dados?
+
+2) verificar quais são os 5 funcionários assalariados mais bem remunerados; exibir também suas respectivas profissões.
+
+3) verificar quais pessoas aparecem mais de uma vez nos registros, em ordem decrescente de quantidade.
+
+4) das pessoas que mais aparecem no banco de dados (questão anterior), listar o registro da pessoa que possui mais ocorrências de quantidade; usar o nome da pessoa como critério de desempate (ordem crescente de nome). 
+
+5) refazer a consulta anterior dispensando a necessidade de especificar manualmente o nome da pessoa.
+
+6) verificar as 5 pessoas que possuem a maior remuneração por hora.
+

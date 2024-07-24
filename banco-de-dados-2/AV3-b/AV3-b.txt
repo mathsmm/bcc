@@ -1,0 +1,26 @@
+AV3-b
+
+Esta avaliação ocorrerá sobre a base de dados Sakila, portanto dedique um tempo para compreender essa base de dados.
+
+AÇÕES A SEREM FEITAS:
+
+A1) elaborar e fornecer comandos SQL que utilizem os recursos abaixo. Além do comando SQL, você deve fornecer também uma descrição textual explicando no que consistem os resultados retornados. Caso queira, pode também explicar o SQL.
+
+a) consultas aninhadas
+b) consultas aninhadas correlacionadas
+c) exists 
+d) unique ou distinct
+e) junções naturais
+f) junção left ou right
+g) agregação
+h) group by
+
+A2) fornecer o comando de criação de uma visão;
+
+A3) elaborar um programa (sugestão: em python) que percorra os registros obtidos por um dos comandos SQL's que foi criado nos itens "a" a "h".
+
+PARA TODAS AS RESPOSTAS FORNEÇA TAMBÉM um ou mais print's da tela, demonstrando a execução do comando.
+
+O envio ocorrerá por meio de um link de acesso aos arquivos (endereço de repositório, google drive, etc). Sugere-se o uso de repositórios para compor portfólio pessoal de aprendizagem.
+
+FIM

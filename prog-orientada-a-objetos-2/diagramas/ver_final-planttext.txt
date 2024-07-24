@@ -1,0 +1,126 @@
+@startuml
+
+!function $vetorzinho($a)
+!return "<color:Navy>" + $a + "</color>"
+!endfunction
+
+!function $tempozinho($a)
+!return "<color:DarkGreen>" + $a + "</color>"
+!endfunction
+
+!theme toy
+
+skin rose
+
+title Diagrama de classes do Simulador
+
+skinparam backgroundColor #EEEBDC
+skinparam classFontColor MidnightBlue
+
+set separator ::
+
+class App{
+  AppVar global;
+  bool runningProgram;
+  bool runningSimulation;
+  SDL_Window* window;
+  SDL_Renderer* renderer;
+  int Execute();
+  void OnInit();
+  void OnBeforeSimulation();
+  void OnAfterSimulation();
+  void OnEvent(SDL_Event);
+  void OnLoopThroughBodies();
+  void OnRenderClear();
+  void OnRenderPresent();
+  void OnCleanup();
+}
+class AppVar{
+  int windowWidth;
+  int windowHeight;
+  int simulationFileIndex;
+  int simulationRectTemplate;
+  int ticksBeforeSimulation;
+  int terminatedCircumQty;
+  int ticksLimitPerSimulation;
+  int circumQty;
+  int terminatedCircumQty;
+  int circumVertexQuantity;
+  *$tempozinho("SimulationTime ST");
+  vector<RectBody> rectBodies;
+  vector<CircumBody> circumBodies;
+}
+class Vect #white;line:Navy;line.bold;back:e5f4fe{
+  double x;
+  double y;
+  Vect unitVect();
+  double Module();
+  {static} double s_Distance();
+  {static} double s_AngleBetween();
+  double VSin();
+  double VCos();
+  double Argument();
+  void IncArgument(double);
+}
+class SimulationTime #white;line:darkgreen;line.bold;back:f4fee5{
+  int fps;
+  int ticks;
+  int dT;
+  double dDT;
+  double rDT;
+  void Delay();
+}
+class Body{
+  *$vetorzinho("Vect position");
+  *$vetorzinho("Vect velocity");
+  *$vetorzinho("Vect acceleration");
+  double area;
+  double mass;
+}
+class Geometry::RectBody{
+  double height;
+  double width;
+  bool terminator;
+}
+class Geometry::CircumBody{
+  double radius;
+  double maxVel;
+  bool terminated;
+}
+stereotype Utils::Mechanics{
+  {static} void CircumMove(CircumBody&);
+  {static} void CircumAccelerate(CircumBody&);
+  {static} void CircumCollision(CircumBody&, CircumBody&);
+  {static} void CircumRectCollision(CircumBody&, RectBody&);
+  {static} void AttractToTerminator(CicumBody&, RectBody[], double)
+}
+stereotype Utils::Exhibition{
+  {static} void DisplayVector(SDL_Renderer*, $vetorzinho(Vect), $vetorzinho(Vect));
+  {static} void DisplayRectBody(SDL_Renderer*, RectBody&);
+  {static} void DisplayCircumBody(SDL_Renderer*, CircumBody&, int, int);
+}
+stereotype Utils::Persistence{
+  {static} bool loadSimulation(AppVar&);
+  {static} bool saveResults(AppVar&);
+}
+
+App *-left- AppVar
+
+Mechanics -[hidden]-> Exhibition
+Exhibition -[hidden]-> Persistence
+
+App -down- Utils
+
+App -[hidden]-> Body
+App -[hidden]-> Mechanics
+
+AppVar *-left- SimulationTime
+AppVar "1" o-down- "n" CircumBody
+AppVar "1" o-down- "n" RectBody
+
+Body <-up- CircumBody
+Body <-up- RectBody
+
+Body *-left- Vect
+
+@enduml

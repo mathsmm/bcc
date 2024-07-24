@@ -1,0 +1,36 @@
+Respostas dos itens da AV3:
+
+
+
+a) 1.51803325614309 
+
+
+
+b) Todos os scripts SQLs que utilizamos está num arquivo chamado scripts_sql.txt
+
+O script que utilizamos para testar e descobrir o valor de X é o quarto do 
+arquivo scripts_sql.txt. Ficamos testando valores até chegar no valor que 
+está expresso no quinto script.
+
+SCRIPT:
+
+SELECT c."Salary or Hourly" AS 'Tipo funcionário', 
+       AVG(c."Annual Salary") AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "SALARY"
+UNION
+SELECT c."Salary or Hourly" AS 'Tipo funcionário',
+       AVG(c."Typical Hours"/7*c."Hourly Rate"*365)*1.51803325614309 AS 'Média salarial anual' 
+FROM chicago c 
+WHERE UPPER(c."Salary or Hourly") == "HOURLY"
+
+
+
+c) SCRIPT DE UPDATE:
+
+UPDATE chicago
+SET "Hourly Rate" = "Hourly Rate" * 1.51803325614309
+WHERE UPPER("Salary or Hourly") == "HOURLY"
+
+OBS: Após o update, o quarto script do arquivo scripts_sql.txt passa a 
+resultar na mesma coisa que o quinto script antes do update

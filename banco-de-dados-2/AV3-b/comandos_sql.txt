@@ -1,0 +1,91 @@
+--Setar language_id para 2 de filmes que contém DRAMA em sua descrição
+UPDATE film 
+SET language_id = 2
+WHERE UPPER(description) LIKE '%DRAMA%'
+
+
+--Setar language_id para 6 de filmes que contém ACTION em sua descrição
+UPDATE film 
+SET language_id = 6
+WHERE UPPER(description) LIKE '%ACTION%'
+
+
+--(A1/a) Selecionar os filmes em italiano e alemão  
+--sem informar diretamente os ids destes idiomas
+SELECT *
+FROM film f 
+WHERE f.language_id IN (
+	SELECT l.language_id 
+	FROM "language" l 
+	WHERE UPPER(l.name) == 'ITALIAN' OR UPPER(l.name) == 'GERMAN' 
+)
+
+
+--(A1/b) Selecionar os clientes que gastaram 
+--mais de 190 dólares em pagamentos
+SELECT *
+FROM customer c 
+WHERE (
+	SELECT SUM(p.amount)
+	FROM payment p 
+	WHERE p.customer_id = c.customer_id 
+) > 190
+
+
+--(A1/c) Selecionar os clientes que tiveram pelo menos
+--um pagamento com valor maior que 11 dólares
+SELECT * 
+FROM customer c 
+WHERE EXISTS (
+	SELECT p.payment_id 
+	FROM payment p 
+	WHERE p.customer_id = c.customer_id AND p.amount > 11.0
+)
+
+
+--(A1/d) Seleciona todas as possíveis combinações de 
+--características especiais dos filmes
+SELECT DISTINCT f.special_features
+FROM film f 
+
+
+--(A1/e) Seleciona todas as cidades cadastradas na 
+--base e seus respectivos países
+SELECT c1.city, c2.country 
+FROM city c1
+NATURAL JOIN country c2 
+
+
+--(A1/f) Seleciona a primeira instância de filme para cada
+--idioma (também mostra idiomas sem filme vinculado)
+SELECT l.name, f.title 
+FROM "language" l
+LEFT JOIN film f ON f.language_id = l.language_id 
+GROUP BY l.name
+
+
+--(A1/g) Seleciona o valor médio dos  
+--pagamentos cadastrados na base
+SELECT AVG(p.amount) 'average_amount'
+FROM payment p 
+
+
+--(A1/h) Seleciona a primeira instância
+--de cidade para cada país
+SELECT c1.city, c2.country 
+FROM city c1
+INNER JOIN country c2 ON c2.country_id = c1.country_id 
+GROUP BY c2.country 
+
+
+--(A2) Visão criada para obter a quantidade
+--de atores de cada filme
+CREATE VIEW [film_actor_quantity] AS
+SELECT f.film_id, f.title, (
+	SELECT COUNT(*)
+	FROM film_actor fa  
+	WHERE fa.film_id = f.film_id 
+) 'actor quantity'
+FROM film f 
+
+SELECT * FROM [film_actor_quantity] faq 
