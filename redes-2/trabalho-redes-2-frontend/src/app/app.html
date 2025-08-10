@@ -1,0 +1,20 @@
+<div style="padding: 20px;">
+  <div>
+    <label>URL da API:</label><br>
+    <input type="text" [(ngModel)]="apiUrl" placeholder="Ex: http://localhost:8000" style="width: 400px;">
+  </div>
+
+  <div style="margin-top: 10px;">
+    <label>Query SQL:</label><br>
+    <textarea [(ngModel)]="querySql" rows="4" cols="50" placeholder="Digite a query aqui..."></textarea>
+  </div>
+
+  <div style="margin-top: 10px;">
+    <button (click)="enviarQuery()">Executar Query</button>
+  </div>
+
+  <div style="margin-top: 20px;">
+    <h3>Resposta da API:</h3>
+    <pre>{{ resposta?.resultado}}</pre>
+  </div>
+</div>

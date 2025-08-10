@@ -1,0 +1,13 @@
+terminal 1:
+    pip install fastapi uvicorn pydantic
+    uvicorn app:app --reload
+    * API rodando em http://127.0.0.1:8000
+    * Swagger: http://127.0.0.1:8000/docs
+
+terminal 2:
+    ngrok config add-authtoken 2zCr4hQxv0pJqjIGukQnghcfaGN_2exfjtwUVy9ycHaYmSzpn
+    ngrok http http://localhost:8000
+    (ou ngrok http 8000)
+
+zeabur:
+    apt update && apt install -y postgresql-client && python -m venv venv && ./venv/bin/pip install fastapi uvicorn pydantic && ./venv/bin/uvicorn app:app --host 0.0.0.0 --port 8000 
