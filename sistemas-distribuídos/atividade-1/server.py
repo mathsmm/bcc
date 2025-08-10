@@ -61,7 +61,7 @@ with app.app_context():
             for entry in dirEntrys:
                 # obtem status referente ao arquivo e grava na lista
                 fileStatus = entry.stat()
-                file = File(entry.name, fileStatus.st_ino, fileStatus.st_mtime)
+                file = File(entry.name, str(fileStatus.st_ino), str(fileStatus.st_mtime))
                 print(file)
                 lista.append(file)
 

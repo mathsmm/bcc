@@ -29,9 +29,9 @@ class File:
 
 class Client:
 
-    def __init__(self, server_addr=SERVER_ADDR, file_dir=FILE_DIR):
-        self.server_addr = server_addr
-        self.file_dir = file_dir
+    def __init__(self):
+        self.server_addr = SERVER_ADDR
+        self.file_dir = FILE_DIR
         self.client_prev_list = None
         self.client_cur_list = None
         self.server_prev_list = None
@@ -40,7 +40,7 @@ class Client:
 
     def list_server_files(self, verbose=False):
         for addr in self.server_addr:
-            response = requests.get(f'{addr}/listar').json()
+            response = dict(requests.get(f'{addr}/listar').json())
             if verbose:
                 for n in response['files']:
                     print(n['name'])
@@ -52,11 +52,11 @@ class Client:
         files = []
         json_files = []
 
-        dirEntrys = os.scandir(self.file_dir)
+        dir_entries = os.scandir(self.file_dir)
         
-        for entry in dirEntrys:
+        for entry in dir_entries:
             if entry.is_file() and entry.name != "client.py":
-                file = File(entry.name, entry.stat().st_ino, entry.stat().st_mtime)
+                file = File(entry.name, str(entry.stat().st_ino), str(entry.stat().st_mtime))
                 #print(file)
                 files.append(file)
 
@@ -68,7 +68,7 @@ class Client:
 
         return json_files
 
-    def create_file(self, file_name):
+    def create_file(self, file_name: str):
         erro = False
         for addr in self.server_addr:
             response = requests.get(f'{addr}/criar/{file_name}').json()
@@ -84,7 +84,7 @@ class Client:
         return False
 
 
-    def delete_file(self, file_name):
+    def delete_file(self, file_name: str):
         response = requests.get(f'{self.server_addr}/deletar/{file_name}').json()
         
         if response['header'] == "OK":
@@ -93,7 +93,7 @@ class Client:
     
         return False
 
-    def write_to_file(self, file_name, content):
+    def write_to_file(self, file_name: str, content: str):
         for addr in self.server_addr:
             response = requests.get(f'{addr}/escrever/{file_name}/{content}').json()
             
@@ -104,7 +104,12 @@ class Client:
         
         return True
     
-    def upload(self, file_name):
+    def upload(self, file_name: str):
+        if len(self.server_addr) == 0:
+            raise Exception("Adicione pelo menos um endereço no SERVER_ADDR")
+
+        response = dict()
+
         for addr in self.server_addr:
 
             files = {'files': open(f'{self.file_dir}/{file_name}', 'rb')}
@@ -113,7 +118,7 @@ class Client:
         return response['header'] == "OK"
 
 
-    def read_from_file(self, file_name):
+    def read_from_file(self, file_name: str):
         response = requests.get(f'{self.server_addr}/ler/{file_name}').json()
         
         if response['header'] == "OK":
@@ -196,10 +201,10 @@ def run():
     client = Client()
     # Repita:
     while True:
-        
+        time.sleep(0.2) # Delay pra não torrar a CPU
+
         # Se não existir lista local:
         if client.client_prev_list == None:
-            
             # Pegar lista do servidor
             client.server_prev_list = client.list_server_files()
             
