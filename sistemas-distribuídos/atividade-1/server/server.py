@@ -9,8 +9,6 @@ SERVER_DIR = "./files/"
 import sys
 porta = sys.argv[1]
 
-# teste
-
 class File:
     # construtor com valor padrão nos parâmetros
     def __init__(self, name="", id="", modified=""):
