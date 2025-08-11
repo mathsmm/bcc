@@ -5,7 +5,7 @@ import os
 import time
 
 #SERVER_ADDR = ["http://191.52.7.91:5000", "http://191.52.7.92:5000"]
-SERVER_ADDR = ["http://172.29.99.77:5000"]
+SERVER_ADDR = ["http://191.52.6.30:5000"]
 FILE_DIR = "./files"
 
 class File:
@@ -88,7 +88,7 @@ class Client:
         return False
 
     def delete_file(self, file_name: str):
-        response = requests.get(f'{self.server_addr}/deletar/{file_name}').json()
+        response = requests.get(f'{self.server_addr[0]}/deletar/{file_name}').json()
         
         if response['header'] == "OK":
             os.remove(f"{self.file_dir}/{file_name}")
@@ -266,6 +266,9 @@ def run():
     # -- -- percorre a lista do local anterior
     # -- -- -- se o elemento não existe na atual
     # -- -- -- -- adiciona na lista de execução (remove_server, name_arquivo)
+            for cur_file in client.client_prev_list:
+                if not cur_file in client.client_cur_list:
+                    client.operation_list.append(('remove_server',cur_file['name']))
 
     # -- -- # CASO 4 - arquivo removido no servidor
     # -- -- percorre a lista do servidor anterior
@@ -283,13 +286,17 @@ def run():
                 
                 elif(operation[0] == 'add_local'):
                     # cria arquivo local
-                    newFile = open("./files/" + operation[1], "x")
-                    newFile.write(operation[2])
-                    newFile.close()
-                
+                    try:
+                        newFile = open("./files/" + operation[1], "x")
+                        content = client.read_from_file(operation[1])
+                        newFile.write(content)
+                        newFile.close()
+                    except:
+                        print(f"arquivo {operation[1]} já existe!")
+
                 elif(operation[0] == 'remove_server'):
                     # remove arquivo do servidor
-                    client.remove_file(operation[1])
+                    client.delete_file(operation[1])
                 
                 elif(operation[0] == 'remove_local'):
                     # remove arquivo local
