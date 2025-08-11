@@ -142,20 +142,18 @@ with app.app_context():
     @app.route("/ler/<file_name>")
     def ler(file_name):
         try:
-            retorno = ""
-            with open('diretorios.json', 'r') as openfile:
-                # Reading from json file
-                json_object = json.load(openfile)
-                retorno = json_object[file_name]
+            file_path = os.path.join("./files/", file_name)
 
-            openedFile = open(SERVER_DIR + retorno, "r")
-            conteudo = openedFile.read()
-            openedFile.close()
+            if not os.path.isfile(file_path):
+                return jsonify({"header": "erro", "detail": "Arquivo não encontrado"}), 404
 
-            resposta = jsonify({"header": "OK", "detail": conteudo, "UFID": retorno})
+            with open(file_path, "r", encoding="utf-8") as f:
+                conteudo = f.read()
+
+            return jsonify({"header": "OK", "detail": conteudo, "file_name": file_name})
+        
         except Exception as e:
-            resposta = jsonify({"header": "erro", "detail": str(e)})
-        return resposta
+            return jsonify({"header": "erro", "detail": str(e)}), 500
 
     app.run(debug=True, host='0.0.0.0', port = porta)
     # para depurar a aplicação web no VSCode, é preciso remover debug=True

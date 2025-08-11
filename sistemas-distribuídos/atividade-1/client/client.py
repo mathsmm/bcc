@@ -4,7 +4,8 @@ import json
 import os
 import time
 
-SERVER_ADDR = ["http://191.52.7.91:5000", "http://191.52.7.92:5000"]
+#SERVER_ADDR = ["http://191.52.7.91:5000", "http://191.52.7.92:5000"]
+SERVER_ADDR = ["http://172.29.99.77:5000"]
 FILE_DIR = "./files"
 
 class File:
@@ -86,7 +87,6 @@ class Client:
         
         return False
 
-
     def delete_file(self, file_name: str):
         response = requests.get(f'{self.server_addr}/deletar/{file_name}').json()
         
@@ -120,9 +120,10 @@ class Client:
 
         return response['header'] == "OK"
 
-
     def read_from_file(self, file_name: str):
-        response = requests.get(f'{self.server_addr}/ler/{file_name}').json()
+        print(self.server_addr)
+        response = requests.get(f'{self.server_addr[0]}/ler/{file_name}').json()
+        print("aaa",response)
         
         if response['header'] == "OK":
             #print(type(response['detail']))
@@ -215,6 +216,7 @@ def run():
             for file in client.server_prev_list:
                 # Solicitar arquivo para o servidor e criar no local
                 f = open(f"{client.file_dir}/{file['name']}", "w")
+                print("bbb", file)
                 content = client.read_from_file(file['name'])
                 f.write(content)
                 f.close()
