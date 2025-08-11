@@ -50,39 +50,30 @@ with app.app_context():
     @app.route("/listar")
     def listar():
         try:
-            print('oi')
-
-            # cria a lista de retorno que sera usadada para gerar o json
-            lista_retorno = []
+            # cria a lista de retorno que sera usada para gerar o json
             # obtem lista dos arquivos do diretŕio atual
-            dirEntrys = os.scandir(SERVER_DIR)
-            lista = []
+            dir_entries = os.scandir(SERVER_DIR)
+            lista_files: 'list[File]' = []
             # percorre a lista de entradas
-            for entry in dirEntrys:
+            for entry in dir_entries:
                 # obtem status referente ao arquivo e grava na lista
                 fileStatus = entry.stat()
                 file = File(entry.name, str(fileStatus.st_ino), str(fileStatus.st_mtime))
                 print(file)
-                lista.append(file)
+                lista_files.append(file)
 
-
+            lista_retorno: 'list[dict[str, str]]' = []
             # percorrer a lista de arquivos e tranforma em json
-            for file in lista:
+            for file in lista_files:
                 lista_retorno.append(file.json())
 
             # preparar uma parte da resposta: resultado ok
-            meujson = {"header":"OK"}
+            meu_json: 'dict[str, str | list[dict[str, str]]]' = {"header": "OK"}
+            meu_json.update({"files": lista_retorno})
 
-            meujson.update({"files":lista_retorno})
-
-            # retornar a lista de pessoas json, com resultado ok
-            resposta = meujson
-
-            # trate corretamente esse erro
-        except Exception as e: 
-            resposta = jsonify({"header": "erro", "files": str(e)})
-
-        return resposta
+            return meu_json
+        except Exception as e:
+            return {"header": "erro", "files": str(e)}
 
     @app.route("/criar/<file_name>")
     def criar(file_name):

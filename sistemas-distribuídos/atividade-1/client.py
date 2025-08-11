@@ -42,8 +42,11 @@ class Client:
         for addr in self.server_addr:
             response = dict(requests.get(f'{addr}/listar').json())
             if verbose:
-                for n in response['files']:
-                    print(n['name'])
+                if type(response['files']) == str:
+                    print(response['files'])
+                elif type(response['files']) == list:
+                    for n in response['files']:
+                        print(n['name'])
             print(response)
             if response:
                 return response['files']
