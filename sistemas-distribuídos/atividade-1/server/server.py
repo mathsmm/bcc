@@ -1,13 +1,12 @@
-# importar a biblioteca flask
 from flask import Flask, request, jsonify
-# biblioteca CORS
 from flask_cors import CORS
 import os
 import json
 import uuid
-SERVER_DIR = "./files/"
 import sys
+
 porta = sys.argv[1]
+SERVER_DIR = "./files/"
 
 class File:
     # construtor com valor padrão nos parâmetros
@@ -35,6 +34,12 @@ app = Flask(__name__)
 # inserindo a aplicação em um contexto
 # https://flask.palletsprojects.com/en/2.2.x/appcontext
 with app.app_context():
+    # Mickaeeel: criar pasta de arquivos caso não exista
+    if not os.path.exists(SERVER_DIR):
+        try:
+            os.makedirs(SERVER_DIR)
+        except Exception as e:
+            print(f'Erro ao criar pasta de arquivos: {e}')
 
     # aplicando tratamento CORS ao flask
     # https://flask-cors.readthedocs.io/en/latest/
@@ -77,6 +82,7 @@ with app.app_context():
     @app.route("/criar/<file_name>")
     def criar(file_name):
         try:
+            # TODO(2025.2): somente arquivos com extensão são suportados
             uuidid = str(uuid.uuid4())+"."+file_name.split(".")[1]
             newFile = open(SERVER_DIR + uuidid, "x")
             newFile.close()
@@ -97,6 +103,7 @@ with app.app_context():
 
             resposta = jsonify({"header": "OK", "UFID": uuidid})
         except Exception as e:
+            print(f'error in /criar: {e}')
             resposta = jsonify({"header": "erro", "detail": e})
 
         return resposta

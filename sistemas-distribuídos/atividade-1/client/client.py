@@ -5,7 +5,7 @@ import os
 import time
 
 #SERVER_ADDR = ["http://191.52.7.91:5000", "http://191.52.7.92:5000"]
-SERVER_ADDR = ["http://191.52.6.30:5000"]
+SERVER_ADDR = ["http://191.52.6.30:5000", "http://191.52.7.91:5000"]
 FILE_DIR = "./files"
 
 class File:
@@ -253,12 +253,19 @@ def run():
                     client.operation_list.append(('add_server',cur_file['name']))
 
 
-            # -- -- # CASO 2- Novo arquivo no servidor
-            # -- -- percorre a lista do servidor atual
+            # CASO 2- Novo arquivo no servidor
+            # Percorre a lista do servidor atual
             for cur_file in client.server_cur_list:
-                # se o elemento não existe na anteiror
-                if cur_file not in client.server_prev_list:
-                    # adiciona na lista de execução (add_local, name_arquivo)
+                # Verifica se o elemento existe na anterior
+                exists = False
+                for other_file in client.server_prev_list:
+                    if cur_file['name'] == other_file['name']:
+                        exists = True
+                        break
+
+                # Se o elemento não existe na anterior
+                if not exists:
+                    # Adiciona na lista de execução (add_local, name_arquivo)
                     client.operation_list.append(('add_local', cur_file['name']))
 
 
@@ -266,9 +273,15 @@ def run():
     # -- -- percorre a lista do local anterior
     # -- -- -- se o elemento não existe na atual
     # -- -- -- -- adiciona na lista de execução (remove_server, name_arquivo)
-            for cur_file in client.client_prev_list:
-                if not cur_file in client.client_cur_list:
-                    client.operation_list.append(('remove_server',cur_file['name']))
+            # for cur_file in client.client_prev_list:
+            #     exists = False
+            #     for other_file in client.client_cur_list:
+            #         if other_file['name'] == cur_file['name']:
+            #             exists = True
+            #             break
+
+            #     if not exists:
+            #         client.operation_list.append(('remove_server',cur_file['name']))
 
     # -- -- # CASO 4 - arquivo removido no servidor
     # -- -- percorre a lista do servidor anterior
